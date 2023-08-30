@@ -1,0 +1,30 @@
+service: todo-api
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: eu-north-1
+  profile: zocom-christoffer
+  iam:
+    role: arn:aws:iam::497180550327:role/lecture-role
+
+plugins:
+  - serverless-webpack
+
+package:
+  individually: true
+
+functions:
+  getTodos:
+    handler: functions/getTodos/index.handler
+    events:
+      - httpApi:
+          path: '/todos'
+          method: GET
+  postTodos:
+    handler: functions/postTodos/index.handler
+    events:
+      - httpApi:
+          path: '/todos'
+          method: POST
